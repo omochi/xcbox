@@ -57,7 +57,11 @@ public enum Resources {
             return repoDir.appendingPathComponent("Resources")
         }
         
-        print("exec: \(execFile)")
-        return URL(string: "")!
+        return execFile
+            .deletingLastPathComponent() // bin
+            .deletingLastPathComponent() // $prefix
+            .appendingPathComponent("etc")
+            .appendingPathComponent("xcbox")
+            .appendingPathComponent("Resources")
     }
 }
