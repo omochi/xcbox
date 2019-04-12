@@ -1,0 +1,3 @@
+import XCBoxApp
+
+XCBoxApp.main()
