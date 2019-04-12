@@ -38,4 +38,4 @@ MIT
 
 # Alternative
 
-This tool is highly inspired [toybox](https://github.com/giginet/Toybox) which is one for xcplayground.
+This tool is highly inspired by [toybox](https://github.com/giginet/Toybox) which is one for xcplayground.
