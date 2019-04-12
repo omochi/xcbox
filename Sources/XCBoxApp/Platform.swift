@@ -1,5 +1,6 @@
 import Foundation
 
-public enum Platform {
+public enum Platform : String {
     case iOS
+    case macOS
 }

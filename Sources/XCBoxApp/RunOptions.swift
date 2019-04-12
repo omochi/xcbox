@@ -71,6 +71,9 @@ public struct RunOptions {
                 case "-i":
                     platform = Platform.iOS
                     i += 1
+                case "-m":
+                    platform = Platform.macOS
+                    i += 1
                 default:
                     throw Error.unknownOption(arg)
                 }

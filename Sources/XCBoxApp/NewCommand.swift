@@ -95,6 +95,8 @@ public final class NewCommand {
         switch platform {
         case .iOS:
             return dir.appendingPathComponent("iOS")
+        case .macOS:
+            return dir.appendingPathComponent("macOS")
         }
     }
     

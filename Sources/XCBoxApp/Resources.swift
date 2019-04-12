@@ -1,18 +1,28 @@
 import Foundation
 
 public enum Resources {
+    public enum Error : ErrorBase {
+        case noExecutableURL
+        
+        public var description: String {
+            switch self {
+            case .noExecutableURL: return "Bundle.main.executableURL is nil"
+            }
+        }
+    }
+    
     public static func findResourceDirectory() throws -> URL {
-        func isSwiftPM(executablePath: URL) -> Bool {
-            var pathComponents = executablePath.pathComponents
+        func isSwiftPM(executableFile: URL) -> Bool {
+            let pathComponents = executableFile.pathComponents
             guard let index = pathComponents.lastIndex(of: ".build") else {
                 return false
             }
             return true
         }
         
-        func isXcode(executablePath: URL) -> Bool {
+        func isXcode(executableFile: URL) -> Bool {
             // test: DerivedData/.../Build/Products
-            var pathComponents = executablePath.pathComponents
+            var pathComponents = executableFile.pathComponents
             guard let index1 = pathComponents.lastIndex(of: "Products") else {
                 return false
             }
@@ -32,11 +42,13 @@ public enum Resources {
             return true
         }
         
-        let arg0 = CommandLine.arguments[0]
-        let execPath = try FileSystems.followLink(path: URL(fileURLWithPath: arg0))
+        guard var execFile = Bundle.main.executableURL else {
+            throw Error.noExecutableURL
+        }
+        execFile = try FileSystems.followLink(file: execFile)
         
-        if isSwiftPM(executablePath: execPath) ||
-            isXcode(executablePath: execPath)
+        if isSwiftPM(executableFile: execFile) ||
+            isXcode(executableFile: execFile)
         {
             let repoDir = URL(fileURLWithPath: String(#file))
                 .deletingLastPathComponent()
@@ -45,7 +57,7 @@ public enum Resources {
             return repoDir.appendingPathComponent("Resources")
         }
         
-        print("exec: \(execPath)")
+        print("exec: \(execFile)")
         return URL(string: "")!
     }
 }
