@@ -6,7 +6,7 @@ Create temporary sandbox xcode project quickly.
 
 ```
 # new iOS project
-$ xcbox -i
+$ xcbox
 ```
 
 # License
