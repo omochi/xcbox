@@ -24,6 +24,13 @@ $ xcbox -i
 $ xcbox -m
 ```
 
+# Install
+
+```
+$ brew tap omochi/xcbox
+$ brew install xcbox
+```
+
 # Management projects
 
 open `$HOME/.xcbox`.
