@@ -1,12 +1,12 @@
 import Foundation
 
-enum ProcessEx {
-    enum Error : ErrorBase {
+public enum ProcessEx {
+    public enum Error : ErrorBase {
         case commandNotFound(String)
         case processStatusFailed(String, Int32)
         case processOutputUtf8DecodeFailed(String)
         
-        var description: String {
+        public var description: String {
             switch self {
             case .commandNotFound(let cmd):
                 return "command not found: \(cmd)"
@@ -20,7 +20,7 @@ enum ProcessEx {
 }
 
 extension Process {
-    static func resolveCommand(name: String) throws -> String {
+    public static func resolveCommand(name: String) throws -> String {
         let path = try capture(command: ["/usr/bin/which", name], resolve: false)
             .trimmingCharacters(in: .whitespacesAndNewlines)
         if path.isEmpty {
@@ -29,7 +29,7 @@ extension Process {
         return path
     }
 
-    static func capture(command: [String], resolve: Bool = true) throws -> String {
+    public static func capture(command: [String], resolve: Bool = true) throws -> String {
         var cmd = command[0]
         if resolve {
             cmd = try resolveCommand(name: cmd)
@@ -68,7 +68,7 @@ extension Process {
         return str
     }
     
-    static func invoke(command: [String], resolve: Bool = true) throws {
+    public static func invoke(command: [String], resolve: Bool = true) throws {
         var cmd = command[0]
         if resolve {
             cmd = try resolveCommand(name: cmd)

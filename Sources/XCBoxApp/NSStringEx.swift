@@ -1,7 +1,7 @@
 import Foundation
 
 extension NSString {
-    func replacingPathNameKeepingExtension(string: String) -> String {
+    public func replacingPathNameKeepingExtension(string: String) -> String {
         let dir = deletingLastPathComponent
         let name = lastPathComponent
         let body = (name as NSString).deletingPathExtension as NSString

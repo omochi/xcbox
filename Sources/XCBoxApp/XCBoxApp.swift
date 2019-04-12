@@ -3,30 +3,30 @@ import Foundation
 public final class XCBoxApp {
     public var resourceDirectory: URL { return _resDir }
     public var workDirectory: URL { return _wkDir }
+    public var config: Config { return _cfg }
     
     private var _resDir: URL!
     private var _wkDir: URL!
-    
-    public init() throws {
-        _resDir = try Resources.findResourceDirectory()
+    private var _cfg: Config!
+    private var _opts: RunOptions!
 
+    public func run() throws {
+        _resDir = try Resources.findResourceDirectory()
+        
         _wkDir = URL(fileURLWithPath: NSHomeDirectory())
             .appendingPathComponent(".xcbox")
-        
-        try fm.createDirectory(at: workDirectory, withIntermediateDirectories: true)
-    }
-    
-    public func run() throws {
-        let options: RunOptions
+
         do {
-            options = try RunOptions.parse()
+            _opts = try RunOptions.parse()
         } catch {
             print(error)
             runHelp()
             return
         }
         
-        switch options.command {
+        try setupConfig()
+
+        switch _opts.command {
         case .help:
             runHelp()
         case .new(let options):
@@ -34,7 +34,17 @@ public final class XCBoxApp {
             try command.run()
         }
     }
-    
+            
+    public func setupConfig() throws {
+        let configFile = workDirectory
+            .appendingPathComponent("config.json")
+        if !fm.fileExists(atPath: configFile.path) {
+            let defaultConfig = Config(defaultPlatform: Platform.iOS)
+            try defaultConfig.writeAsJSON(to: configFile)
+        }
+        _cfg = try Config(fromJSONFile: configFile)
+    }
+
     public func runHelp() {
         let str = """
 xcbox
@@ -54,7 +64,7 @@ formal subcommands:
 
     public static func main() {
         do {
-            let app = try XCBoxApp()
+            let app = XCBoxApp()
             try app.run()
         } catch {
             print(error)

@@ -14,7 +14,7 @@ public enum Resources {
     public static func findResourceDirectory() throws -> URL {
         func isSwiftPM(executableFile: URL) -> Bool {
             let pathComponents = executableFile.pathComponents
-            guard let index = pathComponents.lastIndex(of: ".build") else {
+            guard let _ = pathComponents.lastIndex(of: ".build") else {
                 return false
             }
             return true

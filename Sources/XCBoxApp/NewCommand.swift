@@ -26,7 +26,7 @@ public final class NewCommand {
     }
     
     public func run() throws {
-        let platform = options.platform ?? Platform.iOS
+        let platform = options.platform ?? app.config.defaultPlatform
         
         let now = Date()
         let dateCode = now.dateCode()

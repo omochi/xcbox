@@ -11,10 +11,13 @@ let package = Package(
         .executable(name: "xcbox", targets: ["xcbox"])
     ],
     dependencies: [
-        .package(url: "https://github.com/tuist/xcodeproj.git", from: "6.7.0")
+        .package(url: "https://github.com/tuist/xcodeproj.git", from: "6.7.0"),
+        .package(url: "https://github.com/omochi/FineJSON.git", from: "1.10.0")
     ],
     targets: [
-        .target(name: "XCBoxApp", dependencies: ["xcodeproj"]),
+        .target(name: "XCBoxApp", dependencies: [
+            "xcodeproj",
+            "FineJSON"]),
         .target(name: "xcbox", dependencies: ["XCBoxApp"])
     ]
 )
