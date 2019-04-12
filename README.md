@@ -4,9 +4,24 @@ Create temporary sandbox xcode project quickly.
 
 # Examples
 
+### new project 
+
+install default is iOS
+
 ```
-# new iOS project
 $ xcbox
+```
+
+### new iOS project
+
+```
+$ xcbox -i
+```
+
+### new macOS project
+
+```
+$ xcbox -m
 ```
 
 # License
