@@ -34,7 +34,7 @@ public final class NewCommand {
         let template = self.template(platform: platform)
         
         let projectName = "Sandbox_\(dateCode)"
-        let projectDir = app.workDirectory.appendingPathComponent(projectName)
+        let projectDir = app.projectsDirectory.appendingPathComponent(projectName)
         try fm.copyItem(at: template, to: projectDir)
 
         let xcPath = try renameXcodeprojFile(projectDirectory: projectDir, name: projectName)

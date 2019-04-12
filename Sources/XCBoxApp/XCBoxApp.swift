@@ -3,10 +3,12 @@ import Foundation
 public final class XCBoxApp {
     public var resourceDirectory: URL { return _resDir }
     public var workDirectory: URL { return _wkDir }
+    public var projectsDirectory: URL { return _projsDir }
     public var config: Config { return _cfg }
     
     private var _resDir: URL!
     private var _wkDir: URL!
+    private var _projsDir: URL!
     private var _cfg: Config!
     private var _opts: RunOptions!
 
@@ -15,7 +17,9 @@ public final class XCBoxApp {
         
         _wkDir = URL(fileURLWithPath: NSHomeDirectory())
             .appendingPathComponent(".xcbox")
-
+        _projsDir = _wkDir.appendingPathComponent("projects")
+        try fm.createDirectory(at: _projsDir, withIntermediateDirectories: true)
+        
         do {
             _opts = try RunOptions.parse()
         } catch {
@@ -34,7 +38,7 @@ public final class XCBoxApp {
             try command.run()
         }
     }
-            
+    
     public func setupConfig() throws {
         let configFile = workDirectory
             .appendingPathComponent("config.json")
