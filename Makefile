@@ -1,7 +1,7 @@
 PREFIX?=/usr/local
 
 build:
-	swift build -c release
+	swift build -c release --disable-sandbox
 
 install: build
 	mkdir -p "$(PREFIX)/bin"
