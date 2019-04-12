@@ -24,6 +24,14 @@ $ xcbox -i
 $ xcbox -m
 ```
 
+# Management projects
+
+open `$HOME/.xcbox`.
+
+# Config
+
+edit `$HOME/.xcbox/config.json`.
+
 # License
 
 MIT
